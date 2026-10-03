@@ -1,0 +1,50 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.sepehr071/bale-mcp",
+  "title": "Bale Bot",
+  "description": "Private, local Bale bot for agents: read, search and answer messages, ask and wait, files.",
+  "repository": {
+    "url": "https://github.com/sepehr071/bale-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/sepehr071/bale-mcp",
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "bale-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "BALE_BOT_TOKEN",
+          "description": "Bot token from @botfather in Bale (https://ble.ir/botfather).",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "BALE_ALLOWED_CHATS",
+          "description": "Comma-separated chat ids or @usernames the bot may read and message; all other chats are ignored. Recommended.",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "BALE_MCP_DB",
+          "description": "Local message history file (default ~/.bale-mcp/messages.db); ':memory:' keeps nothing on disk.",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "BALE_MCP_PROXY",
+          "description": "Optional HTTP proxy URL for every request; system proxy settings are ignored.",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}
