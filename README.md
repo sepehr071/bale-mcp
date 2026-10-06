@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/sepehr071/bale-mcp/main/.github/banner.png" alt="bale-mcp: let your AI agent message you and wait for your answer on Bale" width="100%">
+
 # 💬 bale-mcp
 
 **Talk to your AI agents on Bale, privately.**<br>
@@ -11,7 +13,7 @@ reply, send files, and ask you a question and wait for your tap, all from your o
 [![PyPI](https://img.shields.io/pypi/v/bale-mcp?color=2563eb)](https://pypi.org/project/bale-mcp/)
 [![Python](https://img.shields.io/pypi/pyversions/bale-mcp)](https://pypi.org/project/bale-mcp/)
 [![CI](https://github.com/sepehr071/bale-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/sepehr071/bale-mcp/actions/workflows/ci.yml)
-[![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.sepehr071%2Fbale--mcp-7c3aed)](https://registry.modelcontextprotocol.io/v0/servers?search=bale-mcp)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.sepehr071%2Fbale--mcp-7c3aed)](https://registry.modelcontextprotocol.io/?q=bale-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-16a34a)](https://github.com/sepehr071/bale-mcp/blob/main/LICENSE)
 
 [![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=bale&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJiYWxlLW1jcCJdLCJlbnYiOnsiQkFMRV9CT1RfVE9LRU4iOiJ5b3VyLWJvdC10b2tlbiIsIkJBTEVfQUxMT1dFRF9DSEFUUyI6InlvdXItY2hhdC1pZCJ9fQ==)
@@ -207,6 +209,9 @@ Chat ids are numbers (they can exceed 32 bits), or `@username` for public channe
 | `bot_get_chat` | A chat's type, title or name, username and description |
 | `bot_get_webhook_info` | Whether a webhook is set, pending updates and the last error |
 </details>
+
+Of the 13 tools, the 4 send tools are annotated `destructiveHint: true` and the other 9 `readOnlyHint: true`.
+All return compact structured JSON, so they don't flood the agent's context.
 
 ## Good to know
 
