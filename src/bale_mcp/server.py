@@ -52,6 +52,7 @@ mcp = MCPServer(
 )
 
 
+
 def compact(fn):
     """Return the tool result as one compact JSON text block (the SDK default sends it twice, indented)."""
 
@@ -93,8 +94,39 @@ for t in mcp._tool_manager.list_tools():
 
 
 def main() -> None:
-    mcp.run()
+    import os
 
+    if os.environ.get("MCP_TRANSPORT") != "http":
+        mcp.run()
+        return
+
+    import uvicorn
+
+    secret = os.environ.get("MCP_AUTH_TOKEN")  # optional: no token = no auth
+  
+
+    from mcp.server.transport_security import TransportSecuritySettings
+
+
+    inner = mcp.streamable_http_app(
+       transport_security=TransportSecuritySettings(
+           enable_dns_rebinding_protection=True,
+           allowed_hosts=["bale-mcp.onrender.com", "localhost:*", "127.0.0.1:*"],
+           allowed_origins=["https://bale-mcp.onrender.com", "https://chatgpt.com", "https://chat.openai.com"],
+       )
+     )
+
+    async def app(scope, receive, send):
+        if secret and scope["type"] == "http":
+            headers = dict(scope["headers"])
+            if headers.get(b"authorization", b"").decode() != f"Bearer {secret}":
+                await send({"type": "http.response.start", "status": 401,
+                            "headers": [(b"content-type", b"text/plain")]})
+                await send({"type": "http.response.body", "body": b"unauthorized"})
+                return
+        await inner(scope, receive, send)
+
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "8000")))
 
 if __name__ == "__main__":
     main()
