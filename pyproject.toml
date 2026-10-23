@@ -1,6 +1,6 @@
 [project]
 name = "bale-mcp"
-version = "0.2.1"
+version = "0.2.2"
 description = "Private, local MCP server for Bale (bale.ai) bots: let AI agents read, search and answer messages, ask and wait for replies, and send or download files through the official Bot API."
 readme = "README.md"
 license = "MIT"
