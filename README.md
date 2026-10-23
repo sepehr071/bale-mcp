@@ -38,7 +38,7 @@ reply, send files, and ask you a question and wait for your tap, all from your o
 - **Use when:** the agent should report progress, ask for approval or take instructions on Bale while the user is away.
 - **Do not use when:** you need the user's personal chats (the Bot API only sees what people send the bot) or a messenger other than Bale.
 - **Output:** compact JSON. Chat ids are numbers (they can exceed 32 bits) or `@username` for public chats; dates are ISO 8601 UTC; messages carry `message_id`, `kind`, sender and text.
-- **Machine-readable:** [server.json](https://github.com/sepehr071/bale-mcp/blob/main/server.json); catalog of all Iran MCP servers: [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp) (`TOOLS.md`, `servers.json`, `llms.txt`).
+- **Machine-readable:** [server.json](https://github.com/sepehr071/bale-mcp/blob/main/server.json); catalog of all Iran MCP servers: [iran-mcp](https://github.com/sepehr071/iran-mcp) (`TOOLS.md`, `servers.json`, `llms.txt`).
 
 ---
 
@@ -429,7 +429,7 @@ publishes to PyPI and the [MCP Registry](https://registry.modelcontextprotocol.i
 
 ## Related servers
 
-- [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp): catalog of all Iranian-service MCP servers
+- [iran-mcp](https://github.com/sepehr071/iran-mcp): catalog of all Iranian-service MCP servers
 - [PayPing MCP server](https://github.com/sepehr071/payping-mcp) for reading sales and creating invoices in a PayPing merchant account, the other account tool in this family.
 - [digikala-mcp](https://github.com/sepehr071/digikala-mcp) for searching Digikala products and prices
 - [snapp-mcp](https://github.com/sepehr071/snapp-mcp) for Snapp services
@@ -445,9 +445,9 @@ If this saves you clicks, a star helps others find it.
 
 ## Author
 
-<a href="https://www.linkedin.com/in/sepehr-radmard"><img src="https://raw.githubusercontent.com/sepehr071/awesome-iran-mcp/main/assets/author-banner.png" alt="Sepehr Radmard: open-source MCP servers for the Iranian web. LinkedIn: linkedin.com/in/sepehr-radmard" width="100%"></a>
+<a href="https://www.linkedin.com/in/sepehr-radmard"><img src="https://raw.githubusercontent.com/sepehr071/iran-mcp/main/assets/author-banner.png" alt="Sepehr Radmard: open-source MCP servers for the Iranian web. LinkedIn: linkedin.com/in/sepehr-radmard" width="100%"></a>
 
-Built and maintained by **Sepehr Radmard** (سپهر رادمرد). Connect on [LinkedIn](https://www.linkedin.com/in/sepehr-radmard) or follow [@sepehr071 on GitHub](https://github.com/sepehr071) for more MCP servers for Iranian websites, all listed in [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp). If this saves you time, a star on the repo helps other people find it.
+Built and maintained by **Sepehr Radmard** (سپهر رادمرد). Connect on [LinkedIn](https://www.linkedin.com/in/sepehr-radmard) or follow [@sepehr071 on GitHub](https://github.com/sepehr071) for more MCP servers for Iranian websites, all listed in [iran-mcp](https://github.com/sepehr071/iran-mcp). If this saves you time, a star on the repo helps other people find it.
 
 ## License
 
