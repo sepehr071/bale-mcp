@@ -28,6 +28,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/sepehr071/bale-mcp"
 Issues = "https://github.com/sepehr071/bale-mcp/issues"
+Website = "https://mcpfarsi.ir/servers/bale/"
 
 [project.scripts]
 bale-mcp = "bale_mcp.server:main"

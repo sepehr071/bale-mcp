@@ -15,6 +15,7 @@ reply, send files, and ask you a question and wait for your tap, all from your o
 [![CI](https://github.com/sepehr071/bale-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/sepehr071/bale-mcp/actions/workflows/ci.yml)
 [![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.sepehr071%2Fbale--mcp-7c3aed)](https://registry.modelcontextprotocol.io/?q=bale-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-16a34a)](https://github.com/sepehr071/bale-mcp/blob/main/LICENSE)
+[![mcpfarsi](https://mcpfarsi.ir/badge/bale.svg)](https://mcpfarsi.ir/servers/bale/)
 
 [![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=bale&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJiYWxlLW1jcCJdLCJlbnYiOnsiQkFMRV9CT1RfVE9LRU4iOiJ5b3VyLWJvdC10b2tlbiIsIkJBTEVfQUxMT1dFRF9DSEFUUyI6InlvdXItY2hhdC1pZCJ9fQ==)
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_bale--mcp-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=bale&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22bale-mcp%22%5D%2C%22env%22%3A%7B%22BALE_BOT_TOKEN%22%3A%22your-bot-token%22%2C%22BALE_ALLOWED_CHATS%22%3A%22your-chat-id%22%7D%7D)
@@ -434,6 +435,7 @@ publishes to PyPI and the [MCP Registry](https://registry.modelcontextprotocol.i
 - [digikala-mcp](https://github.com/sepehr071/digikala-mcp) for searching Digikala products and prices
 - [snapp-mcp](https://github.com/sepehr071/snapp-mcp) for Snapp services
 - [iran-news-mcp](https://github.com/sepehr071/iran-news-mcp) for Iranian news
+- Listed on [mcpfarsi.ir](https://mcpfarsi.ir/servers/bale/), the Persian MCP marketplace
 
 ## Disclaimer
 
