@@ -158,16 +158,17 @@ async def test_send_file_outside_send_dirs_is_refused(client, api, tmp_path, mon
     assert api.calls == []
 
 
-async def test_send_file_default_roots_are_cwd_and_downloads(client, api, tmp_path, monkeypatch):
+async def test_send_file_default_root_is_downloads_only(client, api, tmp_path, monkeypatch):
     monkeypatch.delenv("BALE_MCP_SEND_DIRS", raising=False)
-    monkeypatch.chdir(tmp_path)
-    (tmp_path / "a.txt").write_text("x")
+    monkeypatch.setattr("bale_mcp.bot.FILES_DIR", tmp_path / "files")
+    (tmp_path / "files").mkdir()
+    (tmp_path / "files" / "a.txt").write_text("x")
     api["sendDocument"] = {**MEDIA, "message_id": 10, "document": {"file_id": "d"}}
-    await call(client, "bot_send_file", {"chat_id": 1, "kind": "document", "source": "a.txt"})
-    elsewhere = tmp_path.parent / "elsewhere.txt"
-    elsewhere.write_text("x")
+    await call(client, "bot_send_file", {"chat_id": 1, "kind": "document", "source": str(tmp_path / "files" / "a.txt")})
+    monkeypatch.chdir(tmp_path)  # the working directory is no longer allowed
+    (tmp_path / "b.txt").write_text("x")
     assert "BALE_MCP_SEND_DIRS" in await error(
-        client, "bot_send_file", {"chat_id": 1, "kind": "document", "source": str(elsewhere)}
+        client, "bot_send_file", {"chat_id": 1, "kind": "document", "source": "b.txt"}
     )
 
 

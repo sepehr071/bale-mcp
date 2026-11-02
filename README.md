@@ -205,8 +205,8 @@ It's a standard stdio MCP server: run `uvx bale-mcp`, or `pip install bale-mcp` 
   instructions to follow.
 - **Confirm before sending.** Tools that change something (send, edit, delete) are annotated `destructiveHint`, and
   their descriptions tell the agent to confirm the recipient and content with you first.
-- **File uploads are fenced.** `bot_send_file` reads local files only from `BALE_MCP_SEND_DIRS` (by default the
-  download folder and the working directory); symlinks are resolved first and paths outside are refused.
+- **File uploads are fenced.** `bot_send_file` reads local files only from `BALE_MCP_SEND_DIRS` (by default only the
+  download folder `~/.bale-mcp/files`); symlinks are resolved first and paths outside are refused.
 - **The token never leaks.** It never appears in tool output, errors or logs.
 - **Know the limits.** Bot API traffic is visible to Bale's servers, as with any bot. `bale-mcp` adds no other
   party.
@@ -373,7 +373,7 @@ npx @modelcontextprotocol/inspector -e BALE_BOT_TOKEN=123456789:your-token uvx b
 | `BALE_BOT_TOKEN` | required | Bot token from @botfather |
 | `BALE_ALLOWED_CHATS` | unset (all chats) | Comma-separated chat ids or `@usernames`; all other chats are ignored and never messaged |
 | `BALE_MCP_DB` | `~/.bale-mcp/messages.db` | Local history file; `:memory:` keeps nothing on disk |
-| `BALE_MCP_SEND_DIRS` | `~/.bale-mcp/files` and the working directory | Folders (separated by `;` on Windows, `:` elsewhere) `bot_send_file` may upload local files from; symlinks are resolved, paths outside are refused |
+| `BALE_MCP_SEND_DIRS` | `~/.bale-mcp/files` | Folders (separated by `;` on Windows, `:` elsewhere) `bot_send_file` may upload local files from; symlinks are resolved, paths outside are refused |
 | `BALE_MCP_PROXY` | unset | HTTP proxy for every request, e.g. `http://user:pass@host:port` |
 
 <a id="فارسی"></a>

@@ -23,9 +23,9 @@ ChatId = Annotated[
 
 
 def send_roots() -> list[Path]:
-    """Folders bot_send_file may read from: BALE_MCP_SEND_DIRS (os.pathsep-separated), else downloads + cwd."""
+    """Folders bot_send_file may read from: BALE_MCP_SEND_DIRS (os.pathsep-separated), else downloads only."""
     raw = [s.strip() for s in os.environ.get("BALE_MCP_SEND_DIRS", "").split(os.pathsep) if s.strip()]
-    return [Path(s).expanduser().resolve() for s in raw] or [FILES_DIR.resolve(), Path.cwd().resolve()]
+    return [Path(s).expanduser().resolve() for s in raw] or [FILES_DIR.resolve()]
 
 
 def token() -> str:
@@ -195,7 +195,7 @@ async def bot_send_file(
 ) -> dict[str, Any]:
     """Send a real photo, document, video, audio or voice file from the bot. Confirm recipient and file with the user first.
 
-    Local paths must lie inside BALE_MCP_SEND_DIRS (default: the download folder and the working directory).
+    Local paths must lie inside BALE_MCP_SEND_DIRS (default: the download folder only).
     """
     params: dict[str, Any] = {"chat_id": chat_id, "caption": caption}
     if source.startswith(("http://", "https://")):
