@@ -17,9 +17,7 @@ BOT_BASE = "https://tapi.bale.ai"
 MAX_UPLOAD = 50 * 1024 * 1024  # Bale's documented bot upload limit
 FILES_DIR = Path.home() / ".bale-mcp" / "files"  # bot_download_file saves here by default
 
-ChatId = Annotated[
-    int | str, Field(description="Chat id (number, e.g. 123456789) or public '@channel' username. See bot_list_chats.")
-]
+ChatId = Annotated[int | str, Field(description="Chat id (number) or public '@channel' username.")]
 
 
 def send_roots() -> list[Path]:
@@ -152,19 +150,15 @@ async def bot_get_webhook_info() -> dict[str, Any]:
 async def bot_send_message(
     chat_id: ChatId,
     text: Annotated[str, Field(min_length=1, max_length=4096, description="Message text.")],
-    reply_to_message_id: Annotated[int | None, Field(description="Reply to this message id in the same chat.")] = None,
+    reply_to_message_id: Annotated[int | None, Field(description="Message id to reply to.")] = None,
     buttons: Annotated[
         list[list[Annotated[str, Field(min_length=1)]]] | None,
-        Field(
-            description="Inline buttons as rows of labels, e.g. [['Yes', 'No']]. A press arrives as kind 'button' (text = label, cut to 64 bytes)."
-        ),
+        Field(description="Inline buttons as rows of labels, e.g. [['Yes', 'No']]. A press arrives as kind 'button'."),
     ] = None,
 ) -> dict[str, Any]:
     """Send a real text message from the bot. Confirm recipient and text with the user first.
 
-    Text is Markdown (*bold*, _italic_). The user must have sent the bot /start first (or the bot is in the
-    group/channel). To ask a question, send it (buttons for fixed choices), then call bot_wait_for_reply with the
-    returned message_id.
+    Markdown text. The user must have sent /start first. Then bot_wait_for_reply with the returned message_id.
     """
     markup = None
     if buttons:
@@ -187,16 +181,13 @@ METHOD = {
 @tool("Bot: send file", sends=True)
 async def bot_send_file(
     chat_id: ChatId,
-    kind: Annotated[FileKind, Field(description="How Bale shows the file.")],
+    kind: Annotated[FileKind, Field(description="File type.")],
     source: Annotated[
-        str, Field(min_length=1, description="http(s) URL, or local file path (max 50 MB; see BALE_MCP_SEND_DIRS).")
+        str, Field(min_length=1, description="http(s) URL, or local path inside BALE_MCP_SEND_DIRS (max 50 MB).")
     ],
-    caption: Annotated[str | None, Field(max_length=1024, description="Optional caption.")] = None,
+    caption: Annotated[str | None, Field(max_length=1024, description="Caption.")] = None,
 ) -> dict[str, Any]:
-    """Send a real photo, document, video, audio or voice file from the bot. Confirm recipient and file with the user first.
-
-    Local paths must lie inside BALE_MCP_SEND_DIRS (default: the download folder only).
-    """
+    """Send a real photo, document, video, audio or voice file from the bot. Confirm recipient and file with the user first."""
     params: dict[str, Any] = {"chat_id": chat_id, "caption": caption}
     if source.startswith(("http://", "https://")):
         params[kind] = source
@@ -220,7 +211,7 @@ async def bot_send_file(
 @tool("Bot: edit message", sends=True)
 async def bot_edit_message(
     chat_id: ChatId,
-    message_id: Annotated[int, Field(description="Id of a text message the bot sent.")],
+    message_id: Annotated[int, Field(description="Id of a bot text message.")],
     text: Annotated[str, Field(min_length=1, max_length=4096, description="New text.")],
 ) -> dict[str, Any]:
     """Replace the text of a message the bot sent earlier. Changes a real message; confirm with the user first."""

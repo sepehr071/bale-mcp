@@ -74,7 +74,7 @@ async def _save_update(u: dict[str, Any]) -> None:
             pass
 
 
-ChatNumber = Annotated[int, Field(description="Numeric chat id (see bot_list_chats).")]
+ChatNumber = Annotated[int, Field(description="Numeric chat id.")]
 Limit = Annotated[int, Field(ge=1, le=500, description="Max messages.")]
 
 
@@ -82,9 +82,7 @@ Limit = Annotated[int, Field(ge=1, le=500, description="Max messages.")]
 async def bot_get_new_messages(limit: Limit = 20) -> dict[str, Any]:
     """Get messages people sent the bot since the last check, from all chats, oldest first, and mark them read.
 
-    Each message has chat_id (reply with it), from, kind (text, photo, button, ...), text, and file_id for
-    media (see bot_download_file). unread_left counts the rest. Fails while a webhook is set
-    (see bot_get_webhook_info).
+    Messages carry chat_id, kind, text and file_id for media. Fails while a webhook is set.
     """
     await sync()
     return {"messages": store.take_unread(limit=limit), "unread_left": store.unread_count()}
@@ -92,17 +90,14 @@ async def bot_get_new_messages(limit: Limit = 20) -> dict[str, Any]:
 
 @tool("Bot: list chats")
 async def bot_list_chats(limit: Annotated[int, Field(ge=1, le=500, description="Max chats.")] = 20) -> dict[str, Any]:
-    """List the chats this bot has talked in, newest first, with unread count and last message. Use to find chat ids."""
+    """List the chats this bot has talked in, newest first, with unread count and last message."""
     note = await sync_or_note()
     return {"chats": store.chats(limit), **note}
 
 
 @tool("Bot: read chat")
 async def bot_read_chat(chat_id: ChatNumber, limit: Limit = 20) -> dict[str, Any]:
-    """Show a chat's recent messages in both directions, oldest first, and mark the chat read.
-
-    Comes from the local store (everything this server received or sent); Bale itself keeps no history.
-    """
+    """Show a chat's recent messages in both directions, oldest first, and mark the chat read (local store; Bale keeps no history)."""
     note = await sync_or_note()
     return {"messages": store.history(chat_id, limit), **note}
 
@@ -116,7 +111,7 @@ async def bot_search_messages(
 ) -> dict[str, Any]:
     """Search stored messages by text, newest first. Persian/Arabic yeh, kaf, digits and ZWNJ match each other.
 
-    Long texts are cut with a '...(+N chars)' marker; bot_read_chat shows them whole.
+    Long texts are cut; bot_read_chat shows them whole.
     """
     note = await sync_or_note()
     found = store.search(query, chat_id, limit)
@@ -131,17 +126,13 @@ async def bot_wait_for_reply(
     chat_id: ChatNumber,
     after_message_id: Annotated[
         int | None,
-        Field(
-            description="Only messages newer than this id: pass the message_id you sent; a button press on it counts."
-        ),
+        Field(description="Only messages newer than this id (the message_id you sent)."),
     ] = None,
-    timeout_seconds: Annotated[
-        int, Field(ge=0, le=600, description="How long to wait; use less if your client cancels long calls.")
-    ] = 60,
+    timeout_seconds: Annotated[int, Field(ge=0, le=600, description="Seconds to wait.")] = 60,
 ) -> dict[str, Any]:
     """Wait until someone writes in a chat or presses a button, then return the new messages (marked read).
 
-    Use after bot_send_message. Returns timed_out=true and no messages if nobody answered; call again to keep waiting.
+    Use after bot_send_message. Returns timed_out=true if nobody answered.
     """
     if not allowed(chat_id):
         raise ApiError(f"Chat {chat_id} is not in BALE_ALLOWED_CHATS, so its messages are never kept.")
@@ -157,7 +148,7 @@ async def bot_wait_for_reply(
 @tool("Bot: download file")
 async def bot_download_file(
     file_id: Annotated[str, Field(min_length=1, description="file_id from a received message.")],
-    folder: Annotated[str | None, Field(description="Folder to save into. Default ~/.bale-mcp/files.")] = None,
+    folder: Annotated[str | None, Field(description="Save folder (default ~/.bale-mcp/files).")] = None,
 ) -> dict[str, Any]:
     """Download a file someone sent the bot (max 20 MB) and return its local path. Never overwrites (-1, -2, ... suffix)."""
     f = await call("getFile", {"file_id": file_id})
