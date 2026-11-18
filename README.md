@@ -253,25 +253,6 @@ Of the 13 tools, the 4 send tools are annotated `destructiveHint: true`, the 3 b
 the 6 reading tools are neither read-only nor destructive (they advance Bale's update offset, mark messages read or
 write a file). All return compact JSON, so they don't flood the agent's context.
 
-## How it works
-
-```text
-  AI agent  (Claude, Cursor, Copilot, ...)
-      │
-      │  MCP over stdio
-      ▼
-  bale-mcp  (runs on your machine)  ──▶  ~/.bale-mcp/messages.db   local history (SQLite)
-      │
-      │  HTTPS, official Bot API
-      ▼
-  tapi.bale.ai  ◀──▶  your Bale app
-```
-
-Each reading tool first pulls pending updates from Bale (`getUpdates`) into the local store, then answers from
-it. Sent messages are stored too, so a chat's history shows both sides. The server uses one HTTP client that
-ignores system proxy variables, does not retry failed calls and keeps no response caches. Every reply is one
-compact JSON block.
-
 ## Good to know
 
 - **Someone must message the bot first.** A user has to send `/start` before the bot can message them; in groups and
